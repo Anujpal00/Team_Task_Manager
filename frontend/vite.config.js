@@ -6,5 +6,9 @@ export default defineConfig({
   server: {
     host: '127.0.0.1',
     port: 5173
+  },
+  preview: {
+    host: '0.0.0.0',
+    allowedHosts: ['welcoming-mercy-production.up.railway.app', '.up.railway.app']
   }
 });
