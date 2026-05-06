@@ -182,4 +182,10 @@ Frontend variables:
 VITE_API_URL=https://<your-backend-domain>/api
 ```
 
+Use the backend service domain only, not the frontend domain. Example:
+
+```text
+VITE_API_URL=https://impartial-emotion-production-8ca6.up.railway.app/api
+```
+
 After both services are deployed, generate a public domain for each service in Railway. Add the frontend domain to backend `CLIENT_URL`, and add the backend domain plus `/api` to frontend `VITE_API_URL`.

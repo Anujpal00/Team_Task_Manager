@@ -1,4 +1,18 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const normalizeApiUrl = (value) => {
+  const fallbackUrl = 'http://localhost:5000/api';
+  const rawUrl = (value || fallbackUrl).trim();
+
+  if (rawUrl.startsWith('/')) {
+    return rawUrl.replace(/\/$/, '');
+  }
+
+  const withProtocol = /^https?:\/\//i.test(rawUrl) ? rawUrl : `https://${rawUrl}`;
+  const withoutTrailingSlash = withProtocol.replace(/\/$/, '');
+
+  return withoutTrailingSlash.endsWith('/api') ? withoutTrailingSlash : `${withoutTrailingSlash}/api`;
+};
+
+const API_URL = normalizeApiUrl(import.meta.env.VITE_API_URL);
 
 const getToken = () => localStorage.getItem('task_manager_token');
 
