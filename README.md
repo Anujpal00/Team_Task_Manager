@@ -138,11 +138,13 @@ Backend variables:
 
 ```text
 PORT=5000
-MONGO_URI=<your Railway MongoDB connection string>
+MONGO_URI=${{MongoDB.MONGO_URL}}
 JWT_SECRET=<long random production secret>
 JWT_EXPIRES_IN=7d
 CLIENT_URL=https://<your-frontend-domain>
 ```
+
+If your MongoDB service has a different name in Railway, replace `MongoDB` with that exact service name. You can also set `MONGO_URL=${{MongoDB.MONGO_URL}}` instead; the backend accepts both `MONGO_URI` and `MONGO_URL`.
 
 ### Frontend Service
 
