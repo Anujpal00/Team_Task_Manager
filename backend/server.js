@@ -19,17 +19,30 @@ const configuredOrigins = (process.env.CLIENT_URL || '')
   .filter(Boolean);
 const allowedOrigins = [
   ...configuredOrigins,
+  'https://welcoming-mercy-production.up.railway.app',
   'http://localhost:5173',
   'http://127.0.0.1:5173',
   'http://localhost:5174',
   'http://127.0.0.1:5174'
 ].filter(Boolean);
 
+const isAllowedOrigin = (origin) => {
+  if (!origin) return true;
+  if (allowedOrigins.includes(origin)) return true;
+
+  try {
+    const url = new URL(origin);
+    return url.protocol === 'https:' && url.hostname.endsWith('.up.railway.app');
+  } catch {
+    return false;
+  }
+};
+
 app.use(helmet());
 app.use(
   cors({
     origin(origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (isAllowedOrigin(origin)) {
         return callback(null, true);
       }
 
