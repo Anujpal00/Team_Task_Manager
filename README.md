@@ -138,13 +138,15 @@ Backend variables:
 
 ```text
 PORT=5000
-MONGO_URI=${{MongoDB.MONGO_URL}}
+MONGO_URI=mongodb+srv://<username>:<password>@<cluster-host>/team_task_manager?retryWrites=true&w=majority
 JWT_SECRET=<long random production secret>
 JWT_EXPIRES_IN=7d
 CLIENT_URL=https://<your-frontend-domain>
 ```
 
-If your MongoDB service has a different name in Railway, replace `MongoDB` with that exact service name. You can also set `MONGO_URL=${{MongoDB.MONGO_URL}}` instead; the backend accepts both `MONGO_URI` and `MONGO_URL`.
+For MongoDB Atlas, copy the connection string from Atlas `Connect -> Drivers`, replace `<password>`, and keep the database name `team_task_manager` before the query string. In Atlas, also add Railway outbound access to `Network Access`; for quick testing you can allow `0.0.0.0/0`, then tighten it later if your plan/network setup supports fixed outbound IPs.
+
+If you use Railway MongoDB later, you can set `MONGO_URI=${{MongoDB.MONGO_URL}}` or `MONGO_URL=${{MongoDB.MONGO_URL}}`; the backend accepts both `MONGO_URI` and `MONGO_URL`.
 
 ### Frontend Service
 
